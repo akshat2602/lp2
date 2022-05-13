@@ -1,237 +1,104 @@
-/*
-Implement depth first search algorithm and Breadth First Search algorithm,
-Use an undirected graph and develop a recursive algorithm for searching
-all the vertices of a graph or tree data structure
-*/
+#include <iostream>
+#include <vector>
+#include <queue>
 
-#include <bits/stdc++.h>
 using namespace std;
 
-class Graph
+const int N = 1e5 + 2;
+bool vis[N];
+vector<int> adj[N];
+queue<int> q;
+
+void setVistedtoZero(bool vis[])
 {
-private:
-    int v;   // no of vertices
-    int **p; // matrix representation
-public:
-    Graph()
+    for (int i = 0; i <= N; i++)
     {
-        v = 0;
-        p = NULL;
+        vis[i] = false;
     }
+}
 
-    Graph(int n)
+void DFS(int node)
+{
+    vis[node] = 1;
+    cout << node << " ";
+
+    vector<int>::iterator it;
+
+    for (it = adj[node].begin(); it != adj[node].end(); it++)
     {
-        v = n;
-        p = new int *[v];
-        for (int i = 0; i < v; i++) // initialising the matrix
+        if (vis[*it])
+            ;
+        else
         {
-            p[i] = new int[v];
-        }
-        for (int i = 0; i < v; i++)
-        {
-            for (int j = 0; j < v; j++)
-            {
-                p[i][j] = 0;
-                p[j][i] = 0;
-            }
+            DFS(*it);
         }
     }
+}
 
-    void setGraph() // setting the graph
+void BFS()
+{
+    if (q.empty())
+        return;
+    // deque front and print
+    int node = q.front();
+    q.pop();
+    cout << node << " ";
+    vector<int>::iterator it;
+    for (it = adj[node].begin(); it != adj[node].end(); it++)
     {
-        char x;
-        for (int i = 0; i < v; i++)
+        if (!vis[*it])
         {
-            for (int j = i; j < v; j++)
-            {
-                cout << "Are vertices " << i << " " << j << " connected(y/n)?";
-                cin >> x;
-                if (x == 'Y' || x == 'y')
-                {
-                    p[i][j] = 1;
-                    p[j][i] = 1;
-                }
-            }
+            vis[*it] = true;
+            q.push(*it);
         }
     }
-
-    void printGraph() // printing the graph
-    {
-        for (int i = 0; i < v; i++)
-        {
-            for (int j = 0; j < v; j++)
-            {
-                cout << p[i][j] << " ";
-            }
-            cout << endl;
-        }
-    }
-
-    void BFS() // Breadth First Search
-    {
-        bool vis[v];
-        for (int i = 0; i < v; i++)
-            vis[i] = false;
-        int vertex;
-        cout << "Enter the start vertex: ";
-        cin >> vertex;
-        cout << "\n";
-        queue<int> q;
-
-        q.push(vertex);
-        while (!q.empty())
-        {
-            vertex = q.front();
-            cout << vertex << " ";
-            vis[vertex] = true;
-            q.pop();
-            for (int i = 0; i < v; i++)
-            {
-                if (p[vertex][i] == 1 && !vis[i])
-                {
-                    q.push(i);
-                    vis[i] = true;
-                }
-            }
-        }
-    }
-
-    void DFS() // Depth First Search
-    {
-        int vertex;
-        cout << "Enter the vertex to start DFS: ";
-        cin >> vertex;
-        bool vis[v];
-        for (int i = 0; i < v; i++)
-            vis[i] = false;
-        stack<int> st;
-        st.push(vertex);
-        while (!st.empty())
-        {
-            vertex = st.top();
-            cout << vertex << " ";
-            st.pop();
-            vis[vertex] = true;
-            for (int i = 0; i < v; i++)
-            {
-                if (p[vertex][i] == 1 && !vis[i])
-                {
-                    st.push(i);
-                    vis[i] = true;
-                }
-            }
-        }
-    }
-
-    void searchVertex()
-    {
-        int vertex = 0, ver;
-        cout << "Enter the vertex to be searched: ";
-        cin >> ver;
-        bool vis[v];
-        for (int i = 0; i < v; i++)
-            vis[i] = false;
-
-        for (int i = 0; i < v; i++)
-        {
-            if (!vis[i])
-            {
-                vertex = i;
-                stack<int> st;
-                st.push(vertex);
-                while (!st.empty())
-                {
-                    vertex = st.top();
-                    st.pop();
-                    if (ver == vertex)
-                    {
-                        cout << "\nVertex " << ver << " is present in the graph\n";
-                        return;
-                    }
-                    vis[vertex] = true;
-                    for (int i = 0; i < v; i++)
-                    {
-                        if (p[vertex][i] == 1 && !vis[i])
-                        {
-                            st.push(i);
-                            vis[i] = true;
-                        }
-                    }
-                }
-            }
-        }
-        cout << "\nVertex " << ver << " is not present in the graph\n";
-    }
-};
+    BFS();
+}
 
 int main()
 {
-    bool cont = true;
-    bool isEmpty = true;
-    Graph g = Graph(1);
-    int choice;
-    while (cont)
+    int n, m;
+    cout << "Enter no. of Edges and Vertices: \n";
+    cin >> n >> m;
+
+    cout << "Enter starting and ending vertices: \n";
+    int x, y;
+    for (int i = 0; i < n; i++)
     {
-        cout << "\nEnter your choice: ";
-        cout << "\n1. Set new graph";
-        cout << "\n2. Print the graph";
-        cout << "\n3. Print BFS from a vertex";
-        cout << "\n4. Print DFS from a vertex";
-        cout << "\n5. Search for a vertex";
-        cout << "\n6. Exit\n";
+        cin >> x >> y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+
+    int choice;
+    do
+    {
+        cout << "\nCHOICES :-\n1 - DFS\n2 - BFS \n3 - Exit\n";
+        cout << "Enter the choice : \n";
         cin >> choice;
+
+        int node;
+
         switch (choice)
         {
         case 1:
-            int v;
-            cout << "\nEnter the number of vertices: ";
-            cin >> v;
-            g = Graph(v);
-            g.setGraph();
-            isEmpty = false;
+            cout << "Enter the node to start with : \n";
+            cin >> node;
+            cout << "DFS: \n";
+            setVistedtoZero(vis);
+            DFS(node);
             break;
         case 2:
-            if (!isEmpty)
-            {
-                cout << "\n\n";
-                g.printGraph();
-                cout << "\n\n";
-            }
-            else
-                cout << "\nPlease Set the graph first\n";
-            break;
-        case 3:
-            if (!isEmpty)
-            {
-                cout << "BFS is ";
-                g.BFS();
-                cout << "\n\n";
-            }
-            else
-                cout << "\nPlease Set the graph first\n";
-            break;
-        case 4:
-            if (!isEmpty)
-            {
-                cout << "DFS is ";
-                g.DFS();
-                cout << "\n\n";
-            }
-            else
-                cout << "\nPlease Set the graph first\n";
-            break;
-        case 5:
-            if (!isEmpty)
-            {
-                g.searchVertex();
-            }
-            else
-                cout << "\nPlease Set the graph first\n";
-            break;
-        case 6:
-            cont = false;
+            cout << "Enter the node to start with : \n";
+            cin >> node;
+            q.push(node);
+            cout << "BFS: \n";
+            setVistedtoZero(vis);
+            vis[node] = true;
+            BFS();
             break;
         }
-    }
+    } while (choice != 3);
+
     return 0;
 }
