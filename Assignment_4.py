@@ -64,13 +64,6 @@ def solveNQUtil(board, row):
 sol = 0
 
 
-def printSolution(board):
-    for i in range(N):
-        for j in range(N):
-            print(board[i][j], end=" ")
-        print()
-
-
 def solveNQ():
     global N
     N = int(input("Enter number of columns: "))
