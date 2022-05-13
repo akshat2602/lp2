@@ -55,7 +55,7 @@ pairs = [
     [
         r"(.*) created ?",
         [
-            "Vedant created me using Python's NLTK library ",
+            "Akshat created me using Python's NLTK library ",
             "top secret ;)",
         ],
     ],
