@@ -1,0 +1,38 @@
+public class Sample
+{
+    public Double val {get;set;}
+    public String result {get;set;}
+
+    public Sample()
+    {
+    }
+
+    public void find()
+    {
+        if(val>=0 && val<=35)
+        {
+            result = 'Fail';
+        }
+        else if(val<=60 && val>35)
+        {
+             result = 'Below Average';
+        }
+        else if(val>60 && val<=75)
+        {
+             result = 'Average';
+        }
+        else if(val>75 && val<=90)
+        {
+             result = 'Above Average';
+        }
+        else if(val>90 && val<=100)
+        {
+             result = 'Excellent';
+        }
+        else
+        {
+             result = 'Invalid';
+        }
+    }
+
+}

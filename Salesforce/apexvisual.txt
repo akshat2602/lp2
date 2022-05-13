@@ -1,0 +1,27 @@
+<apex:page controller="Sample">
+
+<apex:form >
+
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Enter marks"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:inputText value="{!val}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Result"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:inputText value="{!result}" id="res"/><apex:actionStatus id="sts" startText="Finding..."/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Report" action="{!find}" reRender="res"  status="sts"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+</apex:form>
+
+</apex:page>
