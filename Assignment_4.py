@@ -73,7 +73,7 @@ def solveNQ():
         if choice == 1:
             solveNQUtil(board, 0)
             print(sol)
-        elif choice == 3:
+        elif choice == 2:
             break
         else:
             print("\nWrong input\n\n")
