@@ -3,7 +3,7 @@ def printSolution(board):
         for j in range(N):
             print(board[i][j], end=" ")
         print()
-    print("\n\n")
+    print("\n")
 
 
 def isSafe(board, row, col):
@@ -49,7 +49,7 @@ def solveNQUtil(board, row):
     if row == N:
         global sol
         printSolution(board)
-        print("\n\n")
+        print("\n")
         sol += 1
         return
 
@@ -69,14 +69,14 @@ def solveNQ():
     N = int(input("Enter number of columns: "))
     board = [[0 for col in range(N)] for row in range(N)]
     while True:
-        choice = int(input("\n\nEnter \n1: Using Backtracking\n2: Exit\n\n"))
+        choice = int(input("\nEnter \n1: Using Backtracking\n2: Exit\n"))
         if choice == 1:
             solveNQUtil(board, 0)
             print(sol)
         elif choice == 2:
             break
         else:
-            print("\nWrong input\n\n")
+            print("\nWrong input\n")
     return True
 
 
