@@ -69,7 +69,7 @@ def solveNQ():
     N = int(input("Enter number of columns: "))
     board = [[0 for col in range(N)] for row in range(N)]
     while True:
-        choice = int(input("\n\nEnter \n1: Using Backtracking\n3: Exit\n\n"))
+        choice = int(input("\n\nEnter \n1: Using Backtracking\n2: Exit\n\n"))
         if choice == 1:
             solveNQUtil(board, 0)
             print(sol)
